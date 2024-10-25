@@ -40,7 +40,7 @@ class SimulationPawn(SimulationPiece):
         if board.is_empty(forward_pos):
             valid_moves.append(forward_pos)
 
-        # Pawn capturing logic (diagonal moves)
+        
         for diag_x in [-1, 1]:  # Diagonals (left and right)
             diagonal_pos = (curr_x + diag_x, curr_y + direction)
             if board.is_enemy(diagonal_pos, self.color):  # Can capture if there's an enemy piece
@@ -255,16 +255,14 @@ class SimulationBoard:
         return True
 
     def copy_from_board(self, board: Board):
-        # First, clear any existing squares in the SimulationBoard
         self.squares.clear()
 
         # Copy basic attributes
         self.turn = board.turn
-        self.selected_square = board.selected_square  # This may need deeper copy depending on how you use it
+        self.selected_square = board.selected_square  
 
         # Loop through the original board's squares and copy the pieces
         for square in board.squares:
-            # simulation_square = SimulationSquare(square.x, square.y, self.tile_width, self.tile_height)
             simulation_square = SmSq(square.x, square.y)
             if square.occupying_piece:
                 piece_notation = square.occupying_piece.notation
@@ -286,27 +284,19 @@ class SimulationBoard:
 
     
     def make_move(self, from_square: SmSq, to_square: SmSq):
-        """Make a move from one square to another on the simulation board."""
-        # Move the piece from the starting square to the destination square
         if from_square.occupying_piece and to_square not in from_square.occupying_piece.get_valid_moves(self):
-            return False  # Invalid move
+            return False 
 
-        # Capture the piece if the destination square has an occupying piece
         if to_square.occupying_piece:
-            to_square.occupying_piece = None  # Remove the captured piece
+            to_square.occupying_piece = None  
 
-        # Move the piece
         to_square.occupying_piece = from_square.occupying_piece
-        from_square.occupying_piece = None  # Clear the starting square
-
-        # Update the piece's position
+        from_square.occupying_piece = None  
         if to_square.occupying_piece:
             to_square.occupying_piece.pos = to_square.pos
-
-        # Switch turns
         self.turn = 'black' if self.turn == 'white' else 'white'
 
-        return True  # Move was successful
+        return True  
 
     def is_empty(self, pos):
         x, y = pos
@@ -315,11 +305,11 @@ class SimulationBoard:
     def is_enemy(self, pos, color):
         square = self.get_square(pos)
         
-        # Check if the square exists and has a piece
-        if square is None or square.occupying_piece is None:
-            return False  # Not an enemy if there's no piece
         
-        # Check if the piece on the square is an enemy
+        if square is None or square.occupying_piece is None:
+            return False  
+        
+        
         return square.occupying_piece.color != color
     
         
