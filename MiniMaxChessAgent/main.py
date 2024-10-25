@@ -20,8 +20,6 @@ def main():
     
     print(args.white, args.black)
 
-    # white_player: ChessAgent = globals()["HumanPlayer"]('white')
-    # black_player: ChessAgent = globals()["MinimaxPlayer"]('black')
     white_player: ChessAgent = globals()[args.white]('white')
     black_player: ChessAgent = globals()[args.black]('black')
     chess_match(white_player, black_player)
