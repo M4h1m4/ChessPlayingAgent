@@ -5,6 +5,7 @@ from data.classes.agents.ChessAgent import ChessAgent
 from data.classes.Simulation import SimulationBoard, SmSq
 from data.classes.Square import Square
 import random
+import time
 
 color_code = { # to shorten the color code
             "black": "bl",
@@ -31,6 +32,8 @@ class MinimaxAgent(ChessAgent):
         return board.get_square_from_pos(position)
 
     def choose_action(self, board: Board, verbose: bool = True):
+
+        start_time = time.time()
         best_move = None
         best_value = float('-inf') # setting the best value to least so that it can be updated later
 
@@ -51,6 +54,11 @@ class MinimaxAgent(ChessAgent):
                 best_value = mv_value
                 best_move = (move['start'], move['end'])
         
+
+        end_time = time.time()  # End measuring time
+        decision_time = end_time - start_time  # Calculate the decision time
+        print(f"Decision Time: {decision_time:.4f} seconds")
+
         # Convert the best move's SimulationSquare to Square before returning
         if best_move:
             start_square = self.sm_sq_to_sq(best_move[0], board)
