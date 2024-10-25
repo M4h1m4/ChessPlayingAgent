@@ -42,8 +42,8 @@ def chess_match(white_player: ChessAgent, black_player: ChessAgent):
                     running = False
             else:
                 print("Invalid move!")  # Notify about invalid moves
-                break
-                #continue
+                #break
+                continue
         board.draw()
 
     #return winner

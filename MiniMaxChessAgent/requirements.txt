@@ -1,6 +1,10 @@
 pygame
 <<<<<<< HEAD
+<<<<<<< HEAD
 matplotlib
+=======
+matplotlib
+>>>>>>> 28d0a0640b32e65be18c974c9ccd345b41aa5984
 =======
 matplotlib
 >>>>>>> 28d0a0640b32e65be18c974c9ccd345b41aa5984
